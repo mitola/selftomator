@@ -3,11 +3,9 @@ package com.layouts;
 import com.logic.ConsoleIntegration;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.io.IOException;
+import java.awt.event.*;
+import java.io.*;
+import java.util.Properties;
 
 /**
  * Created by mitola1 on 14/11/2017.
@@ -18,13 +16,87 @@ public class MainApp {
     private JTextPane consoleOutput;
     private JButton msgSend;
     private JTabbedPane mainTabber;
-    private JTextField textField1;
-    private JButton button1;
     private JScrollPane scrollConsoleWrapper;
+    private JTextField cmd1;
+    private JButton cmd1b;
+    private JTextField cmd2;
+    private JTextField cmd3;
+    private JTextField cmd4;
+    private JButton cmd2b;
+    private JButton cmd3b;
+    private JButton cmd4b;
+
+    static File file;
+
+    static void saveProperties(Properties p)throws IOException
+    {
+        FileOutputStream fr=new FileOutputStream(file);
+        p.store(fr,"Properties");
+        fr.close();
+        System.out.println("After saving properties:"+p);
+    }
+    void loadPropertiesProperty()throws IOException
+    {
+        Properties p = new Properties();
+
+        FileInputStream fi=new FileInputStream("property.dat");
+        p.load(fi);
+        fi.close();
+
+        cmd1.setText(p.getProperty("cmd1"));
+        cmd2.setText(p.getProperty("cmd2"));
+        cmd3.setText(p.getProperty("cmd3"));
+        cmd4.setText(p.getProperty("cmd4"));
+        System.out.println("After Loading properties:"+p);
+    }
+
+    public void savePropertySet(int cmdNum){
+        file=new File("property.dat");
+        Properties table=new Properties();
+        switch (cmdNum){
+            case 1:
+                table.setProperty("cmd1",cmd1.getText());
+                break;
+            case 2:
+                table.setProperty("cmd2",cmd2.getText());
+                break;
+            case 3:
+                table.setProperty("cmd3",cmd3.getText());
+                break;
+            case 4:
+                table.setProperty("cmd4",cmd4.getText());
+                break;
+        }
+        try {
+            saveProperties(table);
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        }
+    }
+
+
 
     public MainApp() {
 
         ConsoleIntegration console = new ConsoleIntegration();
+        try {
+            loadPropertiesProperty();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        /*Properties prop = new Properties();
+        InputStream in = getClass().getResourceAsStream("property.dat");
+        try {
+            prop.load(in);
+            cmd1.setText(prop.getProperty("cmd1"));
+            cmd2.setText(prop.getProperty("cmd2"));
+            cmd3.setText(prop.getProperty("cmd3"));
+            cmd4.setText(prop.getProperty("cmd4"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }*/
+
 
         msgSend.addActionListener(new ActionListener() {
             @Override
@@ -40,7 +112,6 @@ public class MainApp {
                 } catch (InterruptedException e1) {
                     e1.printStackTrace();
                 }
-
             }
         });
 
@@ -57,6 +128,34 @@ public class MainApp {
             }
         });
 
+        cmd1.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusLost(FocusEvent e) {
+                savePropertySet(1);
+                super.focusLost(e);
+            }
+        });
+        cmd2.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusLost(FocusEvent e) {
+                savePropertySet(2);
+                super.focusLost(e);
+            }
+        });
+        cmd3.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusLost(FocusEvent e) {
+                savePropertySet(3);
+                super.focusLost(e);
+            }
+        });
+        cmd4.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusLost(FocusEvent e) {
+                savePropertySet(4);
+                super.focusLost(e);
+            }
+        });
 
     }
 }
