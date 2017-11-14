@@ -14,10 +14,13 @@ import java.io.IOException;
  */
 public class MainApp {
     public JPanel panelMain;
-    private JTabbedPane mainTabber;
     private JTextField msg;
     private JTextPane consoleOutput;
     private JButton msgSend;
+    private JTabbedPane mainTabber;
+    private JTextField textField1;
+    private JButton button1;
+    private JScrollPane scrollConsoleWrapper;
 
     public MainApp() {
 
@@ -31,7 +34,7 @@ public class MainApp {
                 String consoleCommand = msg.getText();
 
                 try {
-                    console.consoleExecOutput(consoleCommand);
+                   consoleOutput.setText(consoleOutput.getText() + console.consoleExecOutput(consoleCommand));
                 } catch (IOException e1) {
                     e1.printStackTrace();
                 } catch (InterruptedException e1) {
@@ -40,11 +43,14 @@ public class MainApp {
 
             }
         });
+
         msg.addKeyListener(new KeyAdapter() {
+
             @Override
             public void keyTyped(KeyEvent e) {
-                if (e.getKeyCode() == KeyEvent.VK_TAB){
-                    System.out.println("TAB press" + msg.getText());
+                //System.out.println("TAB press" + msg.getText());
+                if (e.getKeyCode() == '\n'){
+                    System.out.println("ENTER press" + msg.getText());
                 }
                 // listen for TAB so we can return the appropriate result
                 super.keyTyped(e);
