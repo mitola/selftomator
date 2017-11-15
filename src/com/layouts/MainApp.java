@@ -31,14 +31,16 @@ public class MainApp {
     static void saveProperties(Properties p)throws IOException
     {
 
-        FileInputStream in = new FileInputStream("property.dat");
+      /*  FileInputStream in = new FileInputStream("property.dat");
         Properties props = new Properties();
         props.load(in);
-        in.close();// Tedst 
+        in.close();// Tedst*/
 
-        FileOutputStream fr=new FileOutputStream(file);
-        p.store(fr,"Properties");
-        fr.close();
+        String filename= "MyFile.txt";
+        FileWriter fw = new FileWriter("property.dat",true); //the true will append the new data
+        //fw.write(p + "\n");//appends the string to the file
+        p.store(fw,"properties");
+        fw.close();
         System.out.println("After saving properties:"+p);
     }
     void loadPropertiesProperty()throws IOException
