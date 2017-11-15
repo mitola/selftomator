@@ -30,6 +30,12 @@ public class MainApp {
 
     static void saveProperties(Properties p)throws IOException
     {
+
+        FileInputStream in = new FileInputStream("property.dat");
+        Properties props = new Properties();
+        props.load(in);
+        in.close();// Tedst 
+
         FileOutputStream fr=new FileOutputStream(file);
         p.store(fr,"Properties");
         fr.close();
@@ -52,23 +58,23 @@ public class MainApp {
 
     public void savePropertySet(int cmdNum){
         file=new File("property.dat");
-        Properties table=new Properties();
+        Properties cmds=new Properties();
         switch (cmdNum){
             case 1:
-                table.setProperty("cmd1",cmd1.getText());
+                cmds.setProperty("cmd1",cmd1.getText());
                 break;
             case 2:
-                table.setProperty("cmd2",cmd2.getText());
+                cmds.setProperty("cmd2",cmd2.getText());
                 break;
             case 3:
-                table.setProperty("cmd3",cmd3.getText());
+                cmds.setProperty("cmd3",cmd3.getText());
                 break;
             case 4:
-                table.setProperty("cmd4",cmd4.getText());
+                cmds.setProperty("cmd4",cmd4.getText());
                 break;
         }
         try {
-            saveProperties(table);
+            saveProperties(cmds);
         } catch (IOException e1) {
             e1.printStackTrace();
         }
