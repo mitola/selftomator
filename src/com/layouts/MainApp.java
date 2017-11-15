@@ -93,26 +93,10 @@ public class MainApp {
             e.printStackTrace();
         }
 
-        /*Properties prop = new Properties();
-        InputStream in = getClass().getResourceAsStream("property.dat");
-        try {
-            prop.load(in);
-            cmd1.setText(prop.getProperty("cmd1"));
-            cmd2.setText(prop.getProperty("cmd2"));
-            cmd3.setText(prop.getProperty("cmd3"));
-            cmd4.setText(prop.getProperty("cmd4"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }*/
-
-
         msgSend.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // call to the logic class to execute the command and return the output to the console.
-                // On this event we also take the data from the text field
                 String consoleCommand = msg.getText();
-
                 try {
                    consoleOutput.setText(consoleOutput.getText() + console.consoleExecOutput(consoleCommand));
                 } catch (IOException e1) {
@@ -127,7 +111,6 @@ public class MainApp {
 
             @Override
             public void keyTyped(KeyEvent e) {
-                //System.out.println("TAB press" + msg.getText());
                 if (e.getKeyCode() == '\n'){
                     System.out.println("ENTER press" + msg.getText());
                 }
