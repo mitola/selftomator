@@ -30,15 +30,7 @@ public class MainApp {
 
     static void saveProperties(Properties p)throws IOException
     {
-
-      /*  FileInputStream in = new FileInputStream("property.dat");
-        Properties props = new Properties();
-        props.load(in);
-        in.close();// Tedst*/
-
-        String filename= "MyFile.txt";
         FileWriter fw = new FileWriter("property.dat",true); //the true will append the new data
-        //fw.write(p + "\n");//appends the string to the file
         p.store(fw,"properties");
         fw.close();
         System.out.println("After saving properties:"+p);
@@ -114,7 +106,6 @@ public class MainApp {
                 if (e.getKeyCode() == '\n'){
                     System.out.println("ENTER press" + msg.getText());
                 }
-                // listen for TAB so we can return the appropriate result
                 super.keyTyped(e);
             }
         });
